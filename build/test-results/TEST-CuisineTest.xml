@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="CuisineTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2015-08-26T21:47:14" hostname="epicodus-114.local" time="0.0">
+<testsuite name="CuisineTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2015-08-26T22:14:13" hostname="epicodus-114.local" time="0.001">
   <properties/>
-  <testcase name="cuisine_returnsCuisineId" classname="CuisineTest" time="0.0"/>
+  <testcase name="cuisine_returnsCuisineId" classname="CuisineTest" time="0.001"/>
   <testcase name="cuisine_returnsType" classname="CuisineTest" time="0.0"/>
   <testcase name="cuisine_instantiatesCorrectly_true" classname="CuisineTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>

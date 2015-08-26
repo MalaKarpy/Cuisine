@@ -3,11 +3,11 @@ import org.sql2o.*;
 
 public class Cuisine {
   private String type;
-  private int cuisineId;
+  private int id;
 
-  public Cuisine(String type, int cuisineId) {
+
+  public Cuisine(String type) {
   this.type = type;
-  this.cuisineId = cuisineId;
 
 }
   public String getType() {
@@ -15,8 +15,20 @@ public class Cuisine {
   }
 
   public int getCuisineId() {
-    return cuisineId;
+    return id;
   }
+
+
+  @Override
+    public boolean equals(Object otherCuisine){
+      if (!(otherCuisine instanceof Cuisine)) {
+        return false;
+      } else {
+        Cuisine newCuisine = (Cuisine) otherCuisine;
+        return this.getType().equals(newCuisine.getType());
+      }
+    }
+
 
   public static Cuisine find(int id) {
     try(Connection con = DB.sql2o.open()) {
@@ -38,12 +50,22 @@ public class Cuisine {
   }
 
 
-//   public List<Restaurants> getRestaurants() {
-//       try(Connection con = DB.sql2o.open()) {
-//         String sql = "SELECT * FROM Restaurants where cuisineId=:id";
-//         return con.createQuery(sql)
-//           .addParameter("id", this.id)
-//           .executeAndFetch(Restaurants.class);
-//       }
-// }
+  public List<Restaurants> getRestaurants() {
+      try(Connection con = DB.sql2o.open()) {
+        String sql = "SELECT * FROM Restaurant where cuisineId=:id";
+        return con.createQuery(sql)
+          .addParameter("id", this.id)
+          .executeAndFetch(Restaurants.class);
+      }
+}
+   public void save() {
+      try(Connection con = DB.sql2o.open()) {
+        String sql = "INSERT INTO cuisine(type) VALUES (:type)";
+        this.id = (int) con.createQuery(sql, true)
+          .addParameter("type", this.type)
+          .executeUpdate()
+          .getKey();
+      }
+    }
+
 }
