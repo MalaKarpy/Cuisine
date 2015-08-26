@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="RestaurantsTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2015-08-26T21:47:14" hostname="epicodus-114.local" time="0.001">
+  <properties/>
+  <testcase name="restaurant_returnsName" classname="RestaurantsTest" time="0.0"/>
+  <testcase name="restaurant_returnsType" classname="RestaurantsTest" time="0.0"/>
+  <testcase name="restaurant_returnsrestaurantId" classname="RestaurantsTest" time="0.0"/>
+  <testcase name="restaurant_instants_true" classname="RestaurantsTest" time="0.0"/>
+  <testcase name="restaurant_returnsCuisineId" classname="RestaurantsTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
