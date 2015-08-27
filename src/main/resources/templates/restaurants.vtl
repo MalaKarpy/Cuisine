@@ -1,13 +1,13 @@
 <h1>Restaurants for $cuisine.getType()</h1>
   <ul>
     #foreach ($restaurant in $restaurants)
-      <li>$restaurant.getName()</li><form action="/restaurants/$restaurant.getRestaurantId()/$cuisine.cuisineId/delete" method="post">
-        <label for="name">Restaurant</label>
-        <input id="name" name="name" type="text">
+      <li>$restaurant.getName()</li>
+      <form action="/restaurants/$restaurant.getRestaurantId()/delete" method="post">
          <button type="submit" class="btn btn-success">Delete</button>
-       </form>
-
+      </form>
     #end
   </ul>
 <br>
 <br>
+
+<!-- /$restaurant.getRestaurantId()/delete -->

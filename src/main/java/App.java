@@ -131,9 +131,9 @@ public class App {
   //   return new ModelAndView(model, layout);
   // }, new VelocityTemplateEngine());
 
-    post("/restaurants/:id/:cuisineId/delete", (request, response) -> {
+    post("/restaurants/:id/delete", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
-      Restaurants restaurants = Restaurants.find(Integer.parseInt(request.params("cuisineId")));
+      Restaurants restaurants = Restaurants.find(Integer.parseInt(request.params(":id")));
       restaurants.delete();
       model.put("cuisines", Cuisine.all());
       model.put("restaurants", Restaurants.all());
