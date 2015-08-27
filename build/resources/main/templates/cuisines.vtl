@@ -1,0 +1,8 @@
+
+<ul>
+  #foreach ($cuisine in $cuisine.getType())
+      <li><h3>$restaurants.getName()</h3></li>
+  #end
+</ul>
+
+<a class="btn btn-primary" href="/cuisines/$cuisine.getCuisineId()/restaurants/new" role="button">Add another Restaurant to $cuisine.getType()</a>

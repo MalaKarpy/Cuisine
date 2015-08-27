@@ -1,13 +1,12 @@
 <h1>Cuisine and Restaurants</h1>
 
-<p>Create a new type of cuisine</p>
+<p>Add A New Cuisine</p>
 
 <form action="/cuisine" method="post">
   <label for="name">Cuisine</label>
   <input id="name" name="name" type="text">
-  <button type="submit" class="btn btn-success">Add Cuisine</button>
+  <button type="submit" class="btn btn-success">Add A New Cuisine</button>
 </form>
-
 
 <p> Add the name of a restaurant to the cuisine type</p>
 
@@ -21,21 +20,30 @@
     </select>
   </div>
   <div class="form-group">
-     <label for="description">Restaurant</label>
-     <input id="description" name="description" type="text" class="form-control">
+     <label for="name">Restaurant</label>
+     <input id="name" name="name" type="text" class="form-control">
    </div>
 
    <button type="submit" class="btn btn-success">Add Restaurant</button>
  </form>
 
+ <!-- <form action="/restaurants/:id/delete" method="post">
+   <label for="name">Restaurant</label>
+   <input id="name" name="name" type="text">
+   <button type="submit" class="btn btn-success">Delete Restaurant</button>
+ </form> -->
 
-#if($cuisines)
+
+<!-- #if($cuisines)
   <p>Click on a cuisine to see its restaurants:</p>
   <ul>
     #foreach($cuisine in $cuisines)
-      <li><a href="/cuisines/$cuisine.getcuisineId() ">$cuisine.getType()</a></li>
+      <li><a href="/cuisines/$cuisine.getCuisineId() ">$cuisine.getType()</a></li>
     #end
   </ul>
-#else
-  <p>There are no cuisine types yet!</p>
-#end
+  #end
+  <p>Restaurants for $cuisine.getType()</p>
+<ul>
+#foreach ($restaurant in $restaurants)
+<li> $restaurant.getName()</li>
+#end </ul> -->

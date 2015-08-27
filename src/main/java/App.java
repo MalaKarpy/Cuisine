@@ -6,8 +6,7 @@ import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 import static spark.Spark.*;
 import org.sql2o.*;
-
-
+import java.util.*;
 
 public class App {
 
@@ -17,6 +16,7 @@ public class App {
 
     get("/", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
+      model.put("cuisines", Cuisine.all());
       model.put("template", "templates/index.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
@@ -31,11 +31,21 @@ public class App {
       HashMap<String, Object> model = new HashMap<String, Object>();
 
       model.put("cuisines", Cuisine.all());
-      model.put("template", "templates/cuisines.vtl");
+      model.put("template", "templates/index.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    get("cuisine/:id/restaurants/new", (request,response) -> {
+    // get("cuisine/:id/restaurants/new", (request,response) -> {
+    //   HashMap<String, Object> model = new HashMap<String, Object>();
+    //   Cuisine cuisine = Cuisine.find(Integer.parseInt(request.params(":id")));
+    //   List<Restaurants> restaurants = cuisine.getRestaurants();
+    //   model.put("cuisine", cuisine);
+    //   model.put("restaurants", restaurants);
+    //   model.put("template", "templates/index.vtl");
+    //   return new ModelAndView(model, layout);
+    // }, new VelocityTemplateEngine());
+
+    get("cuisines/:id", (request,response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
       Cuisine cuisine = Cuisine.find(Integer.parseInt(request.params(":id")));
       List<Restaurants> restaurants = cuisine.getRestaurants();
@@ -59,34 +69,36 @@ public class App {
       HashMap<String, Object> model = new HashMap<String, Object>();
       Cuisine cuisine = Cuisine.find(Integer.parseInt(request.queryParams("cuisineId")));
       int cuisineId = cuisine.getCuisineId();
+      System.out.println(cuisineId);
 
-      String name = request.queryParams("Name");
+      String name = request.queryParams("name");
       Restaurants newRestaurants = new Restaurants(name, cuisineId);
       newRestaurants.save();
       List<Restaurants> restaurants = cuisine.getRestaurants();
-      model.put("restaurants", restaurants);
       model.put("cuisine", cuisine);
-      model.put("template", "templates/index.vtl");
+      model.put("cuisines", Cuisine.all());
+      model.put("restaurants", restaurants);
+      model.put("template", "templates/restaurants.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    // get("/restaurants", (request,response) -> {
-    //   HashMap<String, Object> model = new HashMap<String, Object>();
-    //   List<Restaurants> restaurants = Restaurants.all();
-    //   model.put("restaurants", restaurants);
-    //   model.put("restaurants", Cuisine.all());
-    //   model.put("template", "templates/index.vtl");
-    //   return new ModelAndView(model, layout);
-    // }, new VelocityTemplateEngine());
+    get("/restaurants", (request,response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      List<Restaurants> restaurants = Restaurants.all();
+      model.put("restaurants", restaurants);
+      model.put("restaurants", Cuisine.all());
+      model.put("template", "templates/restaurants.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
 
-    // get("/restaurants/:id", (request,response) -> {
-    //   HashMap<String, Object> model = new HashMap<String, Object>();
-    //   int id = Integer.parseInt(request.params("id"));
-    //   Restaurants restaurants = Restaurants.find(id);
-    //   model.put("restaurants", restaurants);
-    //   model.put("template", "templates/restaurants.vtl");
-    //   return new ModelAndView(model, layout);
-    // }, new VelocityTemplateEngine());
+    get("/restaurants/:id", (request,response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      int id = Integer.parseInt(request.params("id"));
+      Restaurants restaurants = Restaurants.find(id);
+      model.put("restaurants", restaurants);
+      model.put("template", "templates/restaurants.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
 
     // post("/cuisine", (request, response) -> {
     //   HashMap<String, Object> model = new HashMap<String, Object>();
@@ -98,5 +110,36 @@ public class App {
     //   model.put("template", "templates/index.vtl");
     //   return new ModelAndView(model, layout);
     // }, new VelocityTemplateEngine());
+
+    // post ("/restaurants/:id", (request, response) -> {
+    //   HashMap<String, Object> model = new HashMap<String, Object>();
+    //   Restaurants restaurants = Restaurants.find(Integer.parseInt(request.params("cuisineId")));
+    //   Cuisine cuisine = Cuisine.find(restaurants.getCuisineId());
+    //   String name = request.queryParams("name");
+    //   // restaurants.update("name");
+    //   model.put("template", "templates/restaurants.vtl");
+    //   return new ModelAndView(model, layout);
+    // }, new VelocityTemplateEngine());
+  //
+  //   post("/restaurants/:id", (request, response) -> {
+  //   HashMap<String, Object> model = new HashMap<String, Object>();
+  //   Restaurants restaurants = Restaurants.find(Integer.parseInt(request.params("cuisineId")));
+  //   Cuisine cuisine = Cuisine.find(restaurants.getCuisineId());
+  //   String name = request.queryParams("name");
+  //   restaurants.update("name");
+  //   model.put("template", "templates/restaurants.vtl");
+  //   return new ModelAndView(model, layout);
+  // }, new VelocityTemplateEngine());
+
+    post("/restaurants/:id/:cuisineId/delete", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Restaurants restaurants = Restaurants.find(Integer.parseInt(request.params("cuisineId")));
+      restaurants.delete();
+      model.put("cuisines", Cuisine.all());
+      model.put("restaurants", Restaurants.all());
+      // response.redirect("/index.vtl");
+      model.put("template", "templates/index.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
   }
 }

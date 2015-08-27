@@ -12,6 +12,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class AppTest extends FluentTest {
   public WebDriver webDriver = new HtmlUnitDriver();
+
+  @Override
   public WebDriver getDefaultDriver() {
     return webDriver;
   }
@@ -28,14 +30,16 @@ public class AppTest extends FluentTest {
     assertThat(pageSource()).contains("Restaurants");
   }
 
-  @Test
-  public void cuisineIsCreatedAndDisplayedTest() {
-    goTo("http://localhost:4567/");
-    click("a", withText("Add a New Cuisine"));
-    fill("#name").with("Mexican");
-    submit(".btn");
-    assertThat(pageSource()).contains("Cuisine");
-  }
+  // @Test
+  // public void cuisineIsCreatedAndDisplayedTest() {
+  //   goTo("http://localhost:4567/");
+  //   Cuisine myCuisine = new Cuisine("Mexican", 4);
+  //   click("a", withText("Add A New Cuisine"));
+  //   fill("#type").with("Mexican");
+  //   myCuisine.save();
+  //   submit(".btn");
+  //   assertThat(pageSource()).contains("Mexican");
+  // }
 
   // @Test
   // public void categoryIsCreatedAndDisplayedTest() {
